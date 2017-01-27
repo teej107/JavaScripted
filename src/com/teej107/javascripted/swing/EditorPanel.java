@@ -26,7 +26,7 @@ public class EditorPanel extends JPanel
 		this.document = new DefaultStyledDocument();
 		this.textPane = new JTextPane(document);
 
-		document.setDocumentFilter(new JsonDocumentFilter(this));
+		//document.setDocumentFilter(new JsonDocumentFilter(this));
 		add(textPane, BorderLayout.CENTER);
 		try
 		{
@@ -69,7 +69,7 @@ public class EditorPanel extends JPanel
 	private void loadSpecificStyles(String key, Map<String, Object> json)
 	{
 		Style style = textPane.addStyle(key, null);
-		for(Map.Entry<String, Object> entry : json.entrySet())
+		for (Map.Entry<String, Object> entry : json.entrySet())
 		{
 			switch (entry.getKey())
 			{
@@ -104,5 +104,10 @@ public class EditorPanel extends JPanel
 		int wordStart = Utilities.getWordStart(textPane, offset);
 		int wordEnd = Utilities.getWordEnd(textPane, offset);
 		return new Word(doc.getText(wordStart, wordEnd - wordStart), wordStart);
+	}
+
+	public String getText()
+	{
+		return textPane.getText();
 	}
 }

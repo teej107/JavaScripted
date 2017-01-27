@@ -9,7 +9,7 @@ public class ApplicationFrame extends JFrame
 {
 	public ApplicationFrame()
 	{
-		setContentPane(new EditorPanel());
+		setContentPane(new ApplicationPanel());
 
 		setSize(800, 600);
 		setLocationByPlatform(true);

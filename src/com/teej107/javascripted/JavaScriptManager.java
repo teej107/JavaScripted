@@ -1,7 +1,6 @@
 package com.teej107.javascripted;
 
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
+import javax.script.*;
 
 /**
  * Created by teej107 on 1/16/2017.
@@ -19,8 +18,22 @@ public class JavaScriptManager
 		this.engine = manager.getEngineByName("JavaScript");
 	}
 
-	public static ScriptEngine getInstance()
+	public static JavaScriptManager getInstance()
 	{
-		return JAVA_SCRIPT_MANAGER.engine;
+		return JAVA_SCRIPT_MANAGER;
+	}
+
+	public String eval(String s)
+	{
+		try
+		{
+			String result = engine.eval(s).toString();
+			return result == null ? "" : result;
+		}
+		catch (ScriptException e)
+		{
+			e.printStackTrace();
+			return e.getMessage();
+		}
 	}
 }

@@ -11,13 +11,20 @@ public class Main
 {
 	public static void main(String[] args)
 	{
-		if(args.length > 0)
+		if (args.length > 0)
 		{
 
 		}
 		else
 		{
-
+			try
+			{
+				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
 			createAndShowGUI();
 		}
 	}
