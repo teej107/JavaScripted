@@ -1,6 +1,7 @@
 package com.teej107.javascripted.swing;
 
-import com.teej107.javascripted.JavaScriptGlobalObject;
+import com.teej107.javascripted.JavaScriptManager;
+import com.teej107.javascripted.jsobjects.JavaScriptGlobalObject;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,10 +15,13 @@ public class ApplicationPanel extends JPanel
 	private StatusBar statusBar;
 	private ResultPanel resultPanel;
 	private JSplitPane splitPane;
+	private JavaScriptManager jsManager;
 	private JavaScriptGlobalObject jsGlobalObject;
 
 	public ApplicationPanel()
 	{
+		this.jsManager = new JavaScriptManager();
+
 		setLayout(new BorderLayout());
 		this.editorPanel = new EditorPanel();
 		this.resultPanel = new ResultPanel();
@@ -25,10 +29,18 @@ public class ApplicationPanel extends JPanel
 		this.splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, true, editorPanel, resultPanel);
 		this.jsGlobalObject = new JavaScriptGlobalObject(resultPanel);
 
+		setupJavaScriptEngine();
+
 		splitPane.setDividerLocation(400);
 
 		add(splitPane, BorderLayout.CENTER);
 		add(statusBar, BorderLayout.PAGE_END);
+	}
+
+	private void setupJavaScriptEngine()
+	{
+		jsManager.getManager().put("console", jsGlobalObject.getConsole());
+		jsManager.getManager().put("window", jsGlobalObject);
 	}
 
 	public JavaScriptGlobalObject getJavaScriptGlobalObject()
@@ -44,5 +56,10 @@ public class ApplicationPanel extends JPanel
 	public EditorPanel getEditorPanel()
 	{
 		return editorPanel;
+	}
+
+	public JavaScriptManager getJavaScriptManager()
+	{
+		return jsManager;
 	}
 }

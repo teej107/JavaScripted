@@ -16,11 +16,13 @@ public class StatusBar extends JPanel implements MouseListener
 	private JButton run;
 	private EditorPanel editorPanel;
 	private ResultPanel resultPanel;
+	private JavaScriptManager jsManager;
 
 	public StatusBar(ApplicationPanel panel)
 	{
 		this.editorPanel = panel.getEditorPanel();
 		this.resultPanel = panel.getResultPanel();
+		this.jsManager = panel.getJavaScriptManager();
 		this.run = new JButton("Run");
 		run.addMouseListener(this);
 
@@ -33,7 +35,8 @@ public class StatusBar extends JPanel implements MouseListener
 	@Override
 	public void mouseClicked(MouseEvent mouseEvent)
 	{
-		resultPanel.setText(JavaScriptManager.getInstance().eval(editorPanel.getText()));
+		resultPanel.setText(null);
+		resultPanel.append(jsManager.eval(editorPanel.getText()));
 	}
 
 	@Override
